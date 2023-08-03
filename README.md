@@ -30,3 +30,5 @@ If you are developing a production application, we recommend updating the config
 * firebase login
 * firebase init hosting
 * firebase deploy --only hosting
+
+https://stackoverflow.com/questions/71353766/how-to-properly-connect-to-mongodb-using-cloud-functions
