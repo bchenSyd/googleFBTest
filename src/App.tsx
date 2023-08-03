@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { setupWorker } from "msw";
-import { HomePage, UserProfile } from "./pages";
+import { HomePage, UserProfile, Help } from "./pages";
 import { handlers as serviceHandlers } from "./mocks/services";
 import { RequireAuth } from "./auth";
 
@@ -19,7 +19,7 @@ const App = () => (
         <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<UserProfile />} />
       </Route>
-      <Route path="/help" element={<h1>help page</h1>} />
+      <Route path="/help" element={<Help /> /*<h1>help page</h1>*/} />
     </Routes>
   </BrowserRouter>
 );

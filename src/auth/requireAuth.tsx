@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 import { Outlet } from "react-router-dom";
+import { Header } from "../components";
 import { useAuthHook } from "./hook";
 import type { AuthContextType } from "../types";
 
@@ -18,5 +19,10 @@ export const RequireAuth = () => {
   if (isLoading) {
     return <h1>checking auth ....</h1>;
   }
-  return user ? <Outlet context={{ user, logOut, isLoading }} /> : null;
+  return user ? (
+    <>
+      <Header user={user} />
+      <Outlet context={{ user, logOut, isLoading }} />
+    </>
+  ) : null;
 };
