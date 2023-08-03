@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { setupWorker } from "msw";
-import { HomePage } from "./pages";
+import { HomePage, UserProfile } from "./pages";
 import { handlers as serviceHandlers } from "./mocks/services";
 import { RequireAuth } from "./auth";
 
@@ -17,10 +17,7 @@ const App = () => (
     <Routes>
       <Route path="/" element={<RequireAuth />}>
         <Route path="/" element={<HomePage />} />
-        <Route
-          path="/profile"
-          element={<pre>{sessionStorage.getItem("user")}</pre>}
-        />
+        <Route path="/profile" element={<UserProfile />} />
       </Route>
       <Route path="/help" element={<h1>help page</h1>} />
     </Routes>

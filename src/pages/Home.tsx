@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import { useOutletContext } from "react-router-dom";
 import { Button } from "antd";
-import { AuthContext } from "../auth";
+import { AuthContextType } from "../types";
 
 export const HomePage = () => {
-  const { logOut } = useContext(AuthContext);
+  const { logOut } = useOutletContext<AuthContextType>();
   return (
     <div>
       <Button onClick={logOut}>Log out</Button>

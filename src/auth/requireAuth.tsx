@@ -18,13 +18,5 @@ export const RequireAuth = () => {
   if (isLoading) {
     return <h1>checking auth ....</h1>;
   }
-  if (user) {
-    return (
-      <AuthContext.Provider value={{ user, logOut, isLoading }}>
-        <Outlet />
-      </AuthContext.Provider>
-    );
-  } else {
-    return null;
-  }
+  return user ? <Outlet context={{ user, logOut, isLoading }} /> : null;
 };
