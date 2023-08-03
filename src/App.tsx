@@ -1,15 +1,8 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { setupWorker } from "msw";
-import {
-  getRedirectResult,
-  signInWithRedirect,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signOut,
-  User,
-} from "firebase/auth";
-import { auth } from "./authentication";
+import { HomePage } from "./pages";
 import { handlers as serviceHandlers } from "./mocks/services";
+import { RequireAuth } from "./auth";
 
 const setupApp = async () => {
   setupWorker(...serviceHandlers).start();
@@ -19,45 +12,19 @@ if (process.env.NODE_ENV === "development") {
   setupApp();
 }
 
-const App = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [stage, setStage] = useState("not started");
-  useEffect(() => {
-    setStage("getRedirectResult...");
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result) {
-          setStage("redirect success");
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const accessToken = credential?.accessToken || "";
-          const user = result.user;
-          sessionStorage.setItem("token", accessToken);
-          sessionStorage.setItem("user", JSON.stringify(user));
-          setUser(user);
-        } else {
-          // not a redirect
-          const session_user = sessionStorage.getItem("user");
-          if (!session_user) {
-            setStage("Sign in");
-            const provider = new GoogleAuthProvider();
-            signInWithRedirect(auth, provider);
-          } else {
-            setStage("remount after signed in");
-            // todo: populate accessToken and user info from session storage;
-            setUser(JSON.parse(session_user));
-          }
-        }
-      })
-      .catch((err) => {
-        console.error(`login error`, err);
-      });
-  }, []);
-
-  return (
-    <h1>
-      {stage} - {user ? user.displayName : "signing in..."}{" "}
-    </h1>
-  );
-};
+const App = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<RequireAuth />}>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/profile"
+          element={<pre>{sessionStorage.getItem("user")}</pre>}
+        />
+      </Route>
+      <Route path="/help" element={<h1>help page</h1>} />
+    </Routes>
+  </BrowserRouter>
+);
 
 export default App;
