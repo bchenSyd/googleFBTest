@@ -27,6 +27,17 @@ If you are developing a production application, we recommend updating the config
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 
 # firebase
-* firebase login
-* firebase init hosting
-* firebase deploy --only hosting
+
+- firebase login
+- firebase init hosting
+- firebase deploy --only hosting
+
+`firebase hosting:sites:list`
+
+Sites for project genai-bc6ba
+
+┌─────────────┬─────────────────────────────┬───────────────────────────────────────────┐
+│ Site ID │ Default URL │ App ID (if set) │
+├─────────────┼─────────────────────────────┼───────────────────────────────────────────┤
+│ genai-bc6ba │ https://genai-bc6ba.web.app │ 1:504064881467:web:a58ff7d37670068eaebd1e │
+├─────────────┼─────────────────────────────┼───────────────────────────────────────────┤
